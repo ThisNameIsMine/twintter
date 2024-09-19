@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  }
+  .hoverEffect {
+    @apply hover:bg-gray-200 cursor-pointer rounded-full w-[52px] xl:w-auto h-[52px] xl:h-auto xl:p-3 ;
+  } 
+}
