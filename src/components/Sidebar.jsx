@@ -24,7 +24,7 @@ export default function Sidebar() {
 
       {/*Menu*/}
       <div className="mt-4 mb-2.5 xl:items-start">
-        <SidebarMenuItem className="hoverEffect" text="Home" Icon={IoMdHome} />
+        <SidebarMenuItem text="Home" Icon={IoMdHome} />
         <SidebarMenuItem text="Explore" Icon={FaHashtag} />
         <SidebarMenuItem text="Notifications" Icon={FaRegBell} />
         <SidebarMenuItem text="Messages" Icon={GoInbox} />
