@@ -1,5 +1,6 @@
 import React from "react";
 import { TbSparkles } from "react-icons/tb";
+import Input from "./Input";
 
 export default function Feed() {
   return (
@@ -11,6 +12,8 @@ export default function Feed() {
           <TbSparkles size={30} />
         </div>
       </div>
+      {/* TweetBox */}
+      <Input />
     </div>
   );
 }
