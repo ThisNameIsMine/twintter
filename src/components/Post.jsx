@@ -12,15 +12,15 @@ import {
 
 export default function Post({ post }) {
   return (
-    <div className="flex flex-col p-3 cursor-pointer border-b border-gray-200">
+    <div className="flex p-3 cursor-pointer border-b border-gray-200">
+      {/* image */}
+      <img
+        src={post.userImg}
+        alt="profile-pic"
+        className="rounded-full h-11 w-11 mr-4"
+      />
       {/* right side */}
-      <div className="flex">
-        {/* image */}
-        <img
-          src={post.userImg}
-          alt="profile-pic"
-          className="rounded-full h-11 w-11 mr-4"
-        />
+      <div className="">
         {/* header */}
         <div className="flex items-center justify-between">
           {/* post user info */}
@@ -30,7 +30,9 @@ export default function Post({ post }) {
               {post.name}
             </h4>
             {/* username */}
-            <span className="text-sm sm:text-[15px]">@{post.username}</span>
+            <span className="text-sm sm:text-[15px] text-gray-800">
+              @{post.username}
+            </span>
             {/* timestamp */}
             <span className="text-sm sm:text-[15px] hover:underline">
               {post.timestamp}
@@ -42,36 +44,37 @@ export default function Post({ post }) {
             className="hoverEffect hover:bg-sky-100 hover:text-sky-500 p-2"
           />
         </div>
-      </div>
 
-      {/* post text */}
-      <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
-        {post.text}
-      </p>
-      {/* post image */}
-      <img className="rounded-2xl mr-2" src={post.img} alt="post-image" />
-      {/* icons */}
-      <div className="flex p-2 justify-between text-gray-500">
-        <HiChat
-          className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
-          size={30}
-        />
-        <FaTrash
-          className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
-          size={30}
-        />
-        <GoHeart
-          className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
-          size={30}
-        />
-        <CiShare1
-          className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
-          size={30}
-        />
-        <FaChartBar
-          className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
-          size={30}
-        />
+        {/* post text */}
+
+        <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
+          {post.text}
+        </p>
+        {/* post image */}
+        <img className="rounded-2xl mr-2" src={post.img} alt="post-image" />
+        {/* icons */}
+        <div className="flex p-2 justify-between text-gray-500">
+          <HiChat
+            className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
+            size={30}
+          />
+          <FaTrash
+            className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
+            size={30}
+          />
+          <GoHeart
+            className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
+            size={30}
+          />
+          <CiShare1
+            className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
+            size={30}
+          />
+          <FaChartBar
+            className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
+            size={30}
+          />
+        </div>
       </div>
     </div>
   );
