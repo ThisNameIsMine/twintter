@@ -8,7 +8,7 @@ export default function Feed() {
     {
       id: "1",
       name: "Elon Musk",
-      username: "@elonmusk",
+      username: "elonmusk",
       userImg:
         "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png",
       img: "https://www.astronomy.com/uploads/2024/09/starship-test-flight-mission-1200x908.jpg",
@@ -18,7 +18,7 @@ export default function Feed() {
     {
       id: "2",
       name: "Jeff Bezos",
-      username: "@jeffbezos",
+      username: "jeffbezos",
       userImg:
         "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png",
       img: "https://i.ytimg.com/vi/YGt3gZXVWPw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAoABjUrBgXSQYGfSUMVtO2yjV7Q",
