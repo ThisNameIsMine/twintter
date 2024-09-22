@@ -14,3 +14,20 @@ export async function getNewsData() {
   
     return result;
   }
+
+  export async function getrandomUsers()
+  {
+    const res = await fetch(
+      `https://randomuser.me/api/?results=50&inc=name,login,picture`
+    );
+    const data = await res.json();
+    const result = data.results;
+    
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+    
+    return result;
+  }
