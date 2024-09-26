@@ -3,7 +3,6 @@ import React from "react";
 import { signIn, useSession } from "next-auth/react";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
   return (
     <div className="">
       <div className="flex justify-center mt-20">
@@ -24,7 +23,7 @@ export default function LoginPage() {
 
           <button
             onClick={() => signIn("google", { callbackUrl: "/" })}
-            className="rounded-full bg-blue-500 p-3 "
+            className="rounded-full bg-blue-500 p-3 text-white font-bold hover:brightness-90"
           >
             Sign in
           </button>

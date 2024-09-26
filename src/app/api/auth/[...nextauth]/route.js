@@ -13,7 +13,7 @@ export const authOptions = {
   // A database is optional, but required to persist accounts in a database
   secret:process.env.SECRET,
   pages: {
-    signIn: "/auth/login",
+    signIn: "/auth/signin",
   },
   callbacks:{
     async session({session,token,user}){
