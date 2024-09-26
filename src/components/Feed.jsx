@@ -1,31 +1,30 @@
+"use client";
 import React from "react";
 import { TbSparkles } from "react-icons/tb";
 import Input from "./Input";
 import Post from "./Post";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  snapshotEqual,
+} from "firebase/firestore";
+import { db } from "../../firebase";
 
 export default function Feed() {
-  const posts = [
-    {
-      id: "1",
-      name: "Elon Musk",
-      username: "elonmusk",
-      userImg:
-        "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png",
-      img: "https://www.astronomy.com/uploads/2024/09/starship-test-flight-mission-1200x908.jpg",
-      text: "Starship to the moon",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: "2",
-      name: "Jeff Bezos",
-      username: "jeffbezos",
-      userImg:
-        "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png",
-      img: "https://i.ytimg.com/vi/YGt3gZXVWPw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAoABjUrBgXSQYGfSUMVtO2yjV7Q",
-      text: "My new humble purchase.",
-      timestamp: "9 hours ago",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    onSnapshot(
+      query(collection(db, "tweets")),
+      orderBy("timestamp", "desc"),
+      (snapshot) => {
+        setPosts(snapshot.docs);
+      }
+    );
+  }, []);
+  console.log(posts);
   return (
     <div className="xl:ml-[300px] border-l border-r xl:min-w-[600px] sm:ml-[73px] flex-grow max-w-xl border-gray-200">
       {/* TweetBox */}
