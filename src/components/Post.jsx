@@ -20,10 +20,10 @@ import {
   doc,
 } from "firebase/firestore";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { deleteObject } from "firebase/storage";
 import { ref } from "firebase/storage";
-import { modalState } from "../../atom/modalAtom";
+import { modalState, postIdState } from "../../atom/modalAtom";
 import { useRecoilState } from "recoil";
 
 export default function Post({ post }) {
@@ -31,6 +31,7 @@ export default function Post({ post }) {
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
   const [open, setOpen] = useRecoilState(modalState);
+  const [postId, setPostId] = useRecoilState(postIdState);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -70,7 +71,7 @@ export default function Post({ post }) {
       {/* image */}
       <img
         src={post.data().userImg}
-        alt="profile-pic"
+        alt="pp"
         className="rounded-full h-11 w-11 mr-4"
       />
       {/* right side */}
@@ -105,15 +106,24 @@ export default function Post({ post }) {
           {post.data().text}
         </p>
         {/* post image */}
-        <img
-          className="rounded-2xl mr-2"
-          src={post.data().image}
-          alt="post-image"
-        />
+        {post.data().image && (
+          <img
+            className="rounded-2xl mr-2"
+            src={post.data().image}
+            alt="post-image"
+          />
+        )}
         {/* icons */}
         <div className="flex p-2 justify-between text-gray-500">
           <HiChat
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              if (!session) {
+                signIn();
+              } else {
+                setPostId(post.id);
+                setOpen(!open);
+              }
+            }}
             className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
             size={30}
           />

@@ -16,15 +16,16 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    onSnapshot(
-      query(collection(db, "tweets")),
-      orderBy("timestamp", "desc"),
-      (snapshot) => {
-        setPosts(snapshot.docs);
-      }
-    );
-  }, []);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "tweets"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+    []
+  );
   console.log(posts);
   return (
     <div className="xl:ml-[300px] border-l border-r xl:min-w-[600px] sm:ml-[73px] flex-grow max-w-xl border-gray-200">

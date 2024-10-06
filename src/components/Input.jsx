@@ -31,7 +31,6 @@ export default function Input() {
       userImg: session.user.image,
       timestamp: serverTimestamp(),
       name: session.user.name,
-      email: session.user.email,
       username: session.user.username,
     });
     const image = ref(storage, `tweets/${docref.id}/image`);
