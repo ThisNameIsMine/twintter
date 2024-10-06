@@ -11,7 +11,7 @@ import {
   HiDotsHorizontal,
 } from "react-icons/hi";
 import Moment from "react-moment";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import {
   collection,
   onSnapshot,
@@ -21,6 +21,8 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { deleteObject } from "firebase/storage";
+import { ref } from "firebase/storage";
 
 export default function Post({ post }) {
   const { data: session } = useSession();
@@ -43,12 +45,20 @@ export default function Post({ post }) {
   }, [likes]);
 
   async function likePost() {
+    if (session === null) return;
     if (hasLiked) {
       await deleteDoc(doc(db, "tweets", post.id, "likes", session.user.uid));
     } else {
       await setDoc(doc(db, "tweets", post.id, "likes", session.user.uid), {
         username: session.user.username,
       });
+    }
+  }
+  async function deletePost() {
+    if (session === null) return;
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      await deleteDoc(doc(db, "tweets", post.id));
+      await deleteObject(ref(storage, `tweets/${post.id}/image`));
     }
   }
 
@@ -103,10 +113,14 @@ export default function Post({ post }) {
             className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
             size={30}
           />
-          <FaTrash
-            className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
-            size={30}
-          />
+          {session?.user?.uid === post?.data().id && (
+            <FaTrash
+              onClick={deletePost}
+              className="hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
+              size={30}
+            />
+          )}
+
           <div className="flex items-center">
             {hasLiked ? (
               <GoHeartFill
