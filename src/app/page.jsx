@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Feed from "@/components/Feed";
 import Widgets from "@/components/Widgets";
 import { getNewsData, getrandomUsers } from "@/app/utility";
+import CommentModal from "@/components/CommentModal";
 
 export default async function Home() {
   const newsResults = await getNewsData();
@@ -15,6 +16,9 @@ export default async function Home() {
       <Feed />
       {/* Widgets: news, people to follow */}
       <Widgets newsResults={newsResults} randomUsers={randomUsers} />
+
+      {/* Modal */}
+      <CommentModal />
     </main>
   );
 }

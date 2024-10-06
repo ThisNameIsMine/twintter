@@ -23,11 +23,14 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { deleteObject } from "firebase/storage";
 import { ref } from "firebase/storage";
+import { modalState } from "../../atom/modalAtom";
+import { useRecoilState } from "recoil";
 
 export default function Post({ post }) {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
+  const [open, setOpen] = useRecoilState(modalState);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -110,6 +113,7 @@ export default function Post({ post }) {
         {/* icons */}
         <div className="flex p-2 justify-between text-gray-500">
           <HiChat
+            onClick={() => setOpen(!open)}
             className="hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
             size={30}
           />
