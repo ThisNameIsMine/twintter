@@ -10,6 +10,8 @@ import { onSnapshot, doc } from "firebase/firestore";
 import Moment from "react-moment";
 import { useSession } from "next-auth/react";
 import { HiOutlineEmojiHappy, HiOutlinePhotograph } from "react-icons/hi";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export default function CommentModal() {
   const [open, setOpen] = useRecoilState(modalState);
@@ -17,6 +19,7 @@ export default function CommentModal() {
   const [post, setPost] = useState({});
   const [input, setInput] = useState("");
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     onSnapshot(doc(db, "tweets", postId), (snapshot) => {
@@ -26,16 +29,16 @@ export default function CommentModal() {
 
   async function sendComment() {
     if (!input.trim()) return;
-    await addDoc(collection(db, "comments"), {
-      id: session.user.uid,
-      text: input,
-      userImg: session.user.image,
-      timestamp: serverTimestamp(),
+    await addDoc(collection(db, "tweets", post.id, "comments"), {
+      comment: input,
       name: session.user.name,
       username: session.user.username,
-      postId: postId,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
     });
     setInput("");
+    setOpen(false);
+    router.push(`/posts/${post.id}`);
   }
 
   return (
