@@ -3,6 +3,7 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import News from "./News";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Widgets({ newsResults, randomUsers }) {
   const [articleNum, setArticleNum] = useState(3);
@@ -22,9 +23,19 @@ export default function Widgets({ newsResults, randomUsers }) {
       {/* News */}
       <div className="text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 w-[90%] xl:w-[75%]">
         <h4 className="font-bold text-xl px-4 ">What's happening</h4>
-        {newsResults.slice(0, articleNum).map((news) => (
-          <News key={news.title} article={news} />
-        ))}
+        <AnimatePresence>
+          {newsResults.slice(0, articleNum).map((news) => (
+            <motion.div
+              key={news.title}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2 }}
+            >
+              <News key={news.title} article={news} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
         <button
           className="text-blue-300 pl-4 pb-3 hover:text-blue-400"
           onClick={() => setArticleNum(articleNum + 3)}
@@ -33,32 +44,42 @@ export default function Widgets({ newsResults, randomUsers }) {
         </button>
       </div>
       {/* People to follow */}
-      <div className="text-gray-700 space-y-3 bg-gray-100 pt-2 rounded-xl w-[90%] xl:w-[75%] sticky top-16">
+      <div className="text-gray-700 space-y-3 bg-gray-100 pt-2 rounded-xl w-[90%] xl:w-[75%] sticky top-16 ">
         <h4 className="font-bold text-xl px-4">Who to follow:</h4>
-        {randomUsers.slice(0, randomUserNum).map((user) => (
-          <div
-            className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200"
-            key={user.login.username}
-          >
-            <img
-              className="rounded-full"
-              src={user.picture.thumbnail}
-              width="40"
-              alt=""
-            />
-            <div className="truncate ml-4 leading-5">
-              <h4 className="font-bold hover:underline text-[14px] truncate">
-                {user.login.username}
-              </h4>
-              <h5 className="text-[13px] text-gray-500 truncate">
-                {user.name.first + " " + user.name.last}
-              </h5>
-            </div>
-            <button className="text-white bg-black rounded-full px-2 py-1.5 font-bold text-sm hover:text-blue-400 ml-auto">
-              Follow
-            </button>
-          </div>
-        ))}
+        <AnimatePresence>
+          {randomUsers.slice(0, randomUserNum).map((user) => (
+            <motion.div
+              key={user.login.username}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2 }}
+            >
+              <div
+                className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
+                key={user.login.username}
+              >
+                <img
+                  className="rounded-full"
+                  src={user.picture.thumbnail}
+                  width="40"
+                  alt=""
+                />
+                <div className="truncate ml-4 leading-5">
+                  <h4 className="font-bold hover:underline text-[14px] truncate">
+                    {user.login.username}
+                  </h4>
+                  <h5 className="text-[13px] text-gray-500 truncate">
+                    {user.name.first + " " + user.name.last}
+                  </h5>
+                </div>
+                <button className="text-white bg-black rounded-full px-2 py-1.5 font-bold text-sm hover:text-blue-400 ml-auto">
+                  Follow
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
         <button
           onClick={() => setRandomUserNum(randomUserNum + 3)}
           className="text-blue-300 pl-4 pb-3 hover:text-blue-400"
